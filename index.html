@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Ahmad Khorsandi Pour — Cloud Infrastructure Engineer</title>
+  <meta name="description" content="Cloud Infrastructure Engineer and DevOps Consultant based in Muscat, Oman. AWS, ECS, Terraform, CI/CD, Security.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --bg:        #0d1117;
+      --bg-card:   #161b22;
+      --bg-hover:  #1c2128;
+      --border:    #30363d;
+      --text:      #e6edf3;
+      --text-muted:#8b949e;
+      --accent:    #f0883e;
+      --accent-dim:#b45309;
+      --green:     #3fb950;
+      --blue:      #58a6ff;
+      --purple:    #bc8cff;
+      --red:       #f85149;
+
+      --radius:    8px;
+      --radius-lg: 12px;
+      --gap:       24px;
+
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      box-sizing: border-box;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) {
+        --bg:        #ffffff;
+        --bg-card:   #f6f8fa;
+        --bg-hover:  #eaeef2;
+        --border:    #d0d7de;
+        --text:      #1f2328;
+        --text-muted:#656d76;
+      }
+    }
+
+    :root[data-theme="light"] {
+      --bg:        #ffffff;
+      --bg-card:   #f6f8fa;
+      --bg-hover:  #eaeef2;
+      --border:    #d0d7de;
+      --text:      #1f2328;
+      --text-muted:#656d76;
+    }
+
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: env(safe-area-inset-top, 0px);
+      height: 100%;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      height: 100%;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    code, .mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85em;
+      background: var(--bg-hover);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--accent);
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section {
+      padding: 60px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-child { border-bottom: none; }
+
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 28px;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    p { color: var(--text-muted); margin-bottom: 12px; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: env(safe-area-inset-top, 0px);
+      background: rgba(13, 17, 23, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: env(safe-area-inset-top, 0px) 0 0;
+    }
+
+    .nav-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      transition: all 0.15s;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 80px 0 60px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-label {
+      display: inline-block;
+      background: rgba(240, 136, 62, 0.1);
+      border: 1px solid rgba(240, 136, 62, 0.3);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin-bottom: 32px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .hero-meta-item svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--text-muted);
+    }
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.15s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: #e07730;
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ── STATS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: border-color 0.15s;
+    }
+
+    .card:hover { border-color: var(--accent); }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    /* ── WORK ── */
+    .work-item {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .work-item:last-child { border-bottom: none; }
+
+    .work-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .work-title {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .work-date {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .work-company {
+      font-size: 0.875rem;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .work-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .work-bullets li {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .work-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* ── TAGS ── */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      background: var(--bg-hover);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── CERT GRID ── */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .cert-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .cert-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .cert-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ── REPO CARDS ── */
+    .repo-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      transition: border-color 0.15s, background 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .repo-card:hover {
+      border-color: var(--accent);
+      background: var(--bg-hover);
+      text-decoration: none;
+    }
+
+    .repo-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--blue);
+    }
+
+    .repo-desc {
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .repo-lang {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: auto;
+    }
+
+    .lang-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* ── STACK GRID ── */
+    .stack-section { margin-bottom: 28px; }
+
+    .stack-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .stack-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .stack-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 6px 14px;
+      font-size: 0.825rem;
+      color: var(--text);
+      font-weight: 500;
+      transition: border-color 0.15s;
+    }
+
+    .stack-item:hover { border-color: var(--accent); }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .contact-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: border-color 0.15s;
+    }
+
+    .contact-item:hover {
+      border-color: var(--accent);
+      text-decoration: none;
+    }
+
+    .contact-icon {
+      font-size: 1.2rem;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-hover);
+      border-radius: var(--radius);
+    }
+
+    .contact-info { display: flex; flex-direction: column; gap: 2px; }
+
+    .contact-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .contact-value {
+      font-size: 0.875rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.825rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero { padding: 48px 0 40px; }
+      section { padding: 40px 0; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-logo">Ahmad <span>KP</span></span>
+      <ul class="nav-links">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#certs">Certs</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" onclick="toggleTheme()">☀ / ☾</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="container">
+      <div class="hero-label">Available for new roles</div>
+      <h1>Ahmad<br><span>Khorsandi Pour</span></h1>
+      <p class="hero-sub">
+        Cloud Infrastructure Engineer and DevOps Consultant.
+        I design and run AWS production environments for
+        fintech and SaaS platforms — currently based in
+        Muscat, Oman.
+      </p>
+
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <svg viewBox="0 0 16 16"><path d="M8 0C5.24 0 3 2.24 3 5c0 3.75 5 11 5 11s5-7.25 5-11c0-2.76-2.24-5-5-5zm0 7.5C6.62 7.5 5.5 6.38 5.5 5S6.62 2.5 8 2.5 10.5 3.62 10.5 5 9.38 7.5 8 7.5z"/></svg>
+          Muscat, Oman
+        </div>
+        <div class="hero-meta-item">
+          <svg viewBox="0 0 16 16"><path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5V2.5zm2 .5v10h10V3H3z"/></svg>
+          15+ years experience
+        </div>
+        <div class="hero-meta-item">
+          <svg viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/></svg>
+          Open to relocation · Visa sponsorship required
+        </div>
+      </div>
+
+      <div class="hero-links">
+        <a href="mailto:khorsandipour.a@gmail.com" class="btn btn-primary">
+          ✉ Get in touch
+        </a>
+        <a href="https://linkedin.com/in/khorsandipour"
+           target="_blank" class="btn btn-secondary">
+          LinkedIn ↗
+        </a>
+        <a href="https://github.com/khorsandipour"
+           target="_blank" class="btn btn-secondary">
+          GitHub ↗
+        </a>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">30K+</div>
+          <div class="stat-label">Transactions/hour<br>at peak (Salalah Festival)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">12</div>
+          <div class="stat-label">Production services<br>migrated to AWS</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">8</div>
+          <div class="stat-label">Subsidiaries on<br>VMware vSphere</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Smart home projects<br>commissioned</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="container">
+      <h2>Experience</h2>
+
+      <div class="work-item">
+        <div class="work-header">
+          <div class="work-title">Cloud Infrastructure Engineer / DevOps Consultant</div>
+          <div class="work-date">Mar 2026 — Present</div>
+        </div>
+        <div class="work-company">Digital Wallet Technologies (Fintech SaaS) — Muscat, Oman</div>
+        <ul class="work-bullets">
+          <li>Migrated 12 production services from shared hosting to AWS
+              with no service interruptions — EC2, ECS, RDS Multi-AZ,
+              Lambda, WAF, CloudFront, ALB, Auto Scaling, SQS, SNS,
+              S3, Route 53</li>
+          <li>During the Salalah Festival (Jun 2026), the platform
+              handled 30,000+ transactions per hour across web, iOS,
+              Android and POS simultaneously — Auto Scaling absorbed
+              the load without manual intervention</li>
+          <li>Built GitHub Actions CI/CD replacing a manual deployment
+              process that was error-prone during high-traffic periods</li>
+          <li>Applied CIS Benchmark hardening across all Linux servers
+              and the AWS account — SSH lockdown, WAF OWASP Top 10,
+              IAM least-privilege, CloudTrail, GuardDuty</li>
+          <li>24/7 SRE on-call during live festival events — zero
+              downtime incidents reported across all sales channels</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">AWS</span>
+          <span class="tag">ECS</span>
+          <span class="tag">Terraform</span>
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">Docker</span>
+          <span class="tag">WAF</span>
+          <span class="tag">CIS Benchmark</span>
+        </div>
+      </div>
+
+      <div class="work-item">
+        <div class="work-header">
+          <div class="work-title">IT Project Lead — OS Migration</div>
+          <div class="work-date">Oct 2025 — Nov 2025</div>
+        </div>
+        <div class="work-company">National Finance SAOG — Muscat, Oman</div>
+        <ul class="work-bullets">
+          <li>Rolled out OS upgrades across 270 workstations at HQ
+              and 7 regional branches — phased across off-hours to
+              avoid disruption during core banking hours</li>
+          <li>Completed with no reported data-loss incidents across
+              all 8 sites</li>
+          <li>Sole technical liaison between branch managers and IT
+              throughout the project</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Windows</span>
+          <span class="tag">Active Directory</span>
+          <span class="tag">Project Management</span>
+        </div>
+      </div>
+
+      <div class="work-item">
+        <div class="work-header">
+          <div class="work-title">Senior System Administrator</div>
+          <div class="work-date">May 2021 — Dec 2024</div>
+        </div>
+        <div class="work-company">Jahanpars Group — Tehran, Iran</div>
+        <ul class="work-bullets">
+          <li>Managed VMware vSphere and HPE server estate —
+              health checks and tuning cut hardware failures by
+              roughly 15% and improved reliability by around 20%</li>
+          <li>Redesigned Veeam/Veritas DR workflow — brought average
+              RTO down by roughly half through structured quarterly
+              restore testing</li>
+          <li>Firewall configuration, AD Group Policy and structured
+              vulnerability assessments — live security incidents fell
+              by about 30% in the first year</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">VMware vSphere</span>
+          <span class="tag">HPE Servers</span>
+          <span class="tag">Veeam</span>
+          <span class="tag">FortiGate</span>
+          <span class="tag">Active Directory</span>
+        </div>
+      </div>
+
+      <div class="work-item">
+        <div class="work-header">
+          <div class="work-title">Senior Network Administrator</div>
+          <div class="work-date">Feb 2018 — May 2021</div>
+        </div>
+        <div class="work-company">Sadrjahan Mines Development — Tehran, Iran</div>
+        <ul class="work-bullets">
+          <li>Kept system uptime at 99.9% through proactive health
+              checks and patch management across the server estate</li>
+          <li>Deployed Issabel PBX and provisioned 50 Grandstream
+              and Yealink endpoints — handled passive cabling,
+              SIP registration and dial-plan routing</li>
+          <li>No security breaches recorded across the 3-year tenure
+              — firewall config, antivirus and AD access controls
+              reviewed and updated annually</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">CCNA</span>
+          <span class="tag">Issabel PBX</span>
+          <span class="tag">VMware ESXi</span>
+          <span class="tag">Sophos XG</span>
+          <span class="tag">Veeam</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <h2>Featured Projects</h2>
+
+      <div class="card-grid">
+
+        <a href="https://github.com/khorsandipour/aws-production-stack"
+           target="_blank" class="repo-card">
+          <div class="repo-name">
+            ☁ aws-production-stack
+          </div>
+          <div class="repo-desc">
+            Terraform + GitHub Actions for a production-grade
+            AWS stack. ECS Fargate and ECS EC2 running
+            side-by-side, RDS Multi-AZ, WAF with OWASP Top 10,
+            CloudFront, Auto Scaling. Sanitized version of the
+            infrastructure handling 30,000+ TPS.
+          </div>
+          <div class="tags">
+            <span class="tag">Terraform</span>
+            <span class="tag">ECS</span>
+            <span class="tag">RDS</span>
+            <span class="tag">WAF</span>
+          </div>
+          <div class="repo-lang">
+            <span class="lang-dot" style="background:#7b42bc"></span>
+            HCL
+          </div>
+        </a>
+
+        <a href="https://github.com/khorsandipour/ecs-deploy-pipeline"
+           target="_blank" class="repo-card">
+          <div class="repo-name">
+            ⚙ ecs-deploy-pipeline
+          </div>
+          <div class="repo-desc">
+            Zero-downtime ECS deployment via GitHub Actions.
+            Build → push to ECR → rolling ECS update →
+            health check → auto rollback on failure.
+            Production-tested pattern with ops runbook.
+          </div>
+          <div class="tags">
+            <span class="tag">GitHub Actions</span>
+            <span class="tag">ECS</span>
+            <span class="tag">ECR</span>
+          </div>
+          <div class="repo-lang">
+            <span class="lang-dot" style="background:#2088ff"></span>
+            YAML
+          </div>
+        </a>
+
+        <a href="https://github.com/khorsandipour/linux-cis-hardening"
+           target="_blank" class="repo-card">
+          <div class="repo-name">
+            🔒 linux-cis-hardening
+          </div>
+          <div class="repo-desc">
+            CIS Benchmark Level 1 & 2 hardening scripts for
+            Ubuntu and CentOS on AWS EC2. SSH hardening,
+            UFW firewall, Fail2ban, kernel parameters,
+            automated patching and AWS account audit.
+          </div>
+          <div class="tags">
+            <span class="tag">CIS Benchmark</span>
+            <span class="tag">Ubuntu</span>
+            <span class="tag">Security</span>
+          </div>
+          <div class="repo-lang">
+            <span class="lang-dot" style="background:#89e051"></span>
+            Shell
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack">
+    <div class="container">
+      <h2>Tech Stack</h2>
+
+      <div class="stack-section">
+        <div class="stack-label">AWS</div>
+        <div class="stack-items">
+          <span class="stack-item">EC2</span>
+          <span class="stack-item">ECS Fargate</span>
+          <span class="stack-item">ECS EC2</span>
+          <span class="stack-item">RDS Multi-AZ</span>
+          <span class="stack-item">Lambda</span>
+          <span class="stack-item">S3</span>
+          <span class="stack-item">CloudFront</span>
+          <span class="stack-item">ALB</span>
+          <span class="stack-item">WAF</span>
+          <span class="stack-item">Route 53</span>
+          <span class="stack-item">SQS</span>
+          <span class="stack-item">SNS</span>
+          <span class="stack-item">ECR</span>
+          <span class="stack-item">Auto Scaling</span>
+          <span class="stack-item">CloudWatch</span>
+          <span class="stack-item">GuardDuty</span>
+        </div>
+      </div>
+
+      <div class="stack-section">
+        <div class="stack-label">DevOps & Infrastructure</div>
+        <div class="stack-items">
+          <span class="stack-item">Terraform</span>
+          <span class="stack-item">GitHub Actions</span>
+          <span class="stack-item">Docker</span>
+          <span class="stack-item">Linux (Ubuntu/CentOS)</span>
+          <span class="stack-item">VMware vSphere</span>
+          <span class="stack-item">Veeam</span>
+          <span class="stack-item">Veritas</span>
+          <span class="stack-item">HPE Servers</span>
+        </div>
+      </div>
+
+      <div class="stack-section">
+        <div class="stack-label">Security</div>
+        <div class="stack-items">
+          <span class="stack-item">CIS Benchmark</span>
+          <span class="stack-item">FortiGate</span>
+          <span class="stack-item">Sophos XG</span>
+          <span class="stack-item">AWS WAF</span>
+          <span class="stack-item">Fail2ban</span>
+          <span class="stack-item">CEH v12</span>
+          <span class="stack-item">SANS SEC504</span>
+        </div>
+      </div>
+
+      <div class="stack-section">
+        <div class="stack-label">Networking</div>
+        <div class="stack-items">
+          <span class="stack-item">CCNA</span>
+          <span class="stack-item">TCP/IP</span>
+          <span class="stack-item">VoIP / SIP</span>
+          <span class="stack-item">Issabel PBX</span>
+          <span class="stack-item">Grandstream</span>
+          <span class="stack-item">Yealink</span>
+        </div>
+      </div>
+
+      <div class="stack-section">
+        <div class="stack-label">Automation & Data</div>
+        <div class="stack-items">
+          <span class="stack-item">n8n (self-hosted)</span>
+          <span class="stack-item">AI Agents</span>
+          <span class="stack-item">Data Science</span>
+          <span class="stack-item">WordPress</span>
+          <span class="stack-item">SEO</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CERTS -->
+  <section id="certs">
+    <div class="container">
+      <h2>Certifications</h2>
+      <div class="cert-grid">
+
+        <div class="cert-item">
+          <div class="cert-name">CEH v12</div>
+          <div class="cert-meta">Douran Academy · 2023 · 40hrs</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">SANS SEC504</div>
+          <div class="cert-meta">Douran Academy · 2023 · 40hrs</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">VMware VCP-DCV 1 & 2</div>
+          <div class="cert-meta">Douran Academy · 2023 · 60hrs</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">CCNA 200-301</div>
+          <div class="cert-meta">Cisco · 2020 · ID: CSCO13641732</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">FortiGate Expert</div>
+          <div class="cert-meta">TOSINSO · 2021 · TCN-0000118</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">HP Server Expert</div>
+          <div class="cert-meta">TOSINSO · 2021 · TCN-0000119</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">NAS Storage Expert</div>
+          <div class="cert-meta">TOSINSO · 2024 · TCN-0011168</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">Data Science — 350hrs</div>
+          <div class="cert-meta">University of Tehran · 2024</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">PMBOK · MSP · Primavera P6</div>
+          <div class="cert-meta">Tehran Institute of Technology · 2019 · Score 98/100</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">MBA</div>
+          <div class="cert-meta">Mahan Business School · 2020</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">M.S. Control Engineering</div>
+          <div class="cert-meta">Tafresh University · 2015</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-name">B.S. Electrical Engineering</div>
+          <div class="cert-meta">IAU Science & Research · 2010</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <h2>Contact</h2>
+      <p style="margin-bottom:24px">
+        Open to Cloud Infrastructure, DevOps and SRE roles.
+        Available to relocate with visa sponsorship.
+      </p>
+      <div class="contact-grid">
+
+        <a href="mailto:khorsandipour.a@gmail.com"
+           class="contact-item">
+          <div class="contact-icon">✉</div>
+          <div class="contact-info">
+            <span class="contact-label">Email</span>
+            <span class="contact-value">khorsandipour.a@gmail.com</span>
+          </div>
+        </a>
+
+        <a href="https://linkedin.com/in/khorsandipour"
+           target="_blank" class="contact-item">
+          <div class="contact-icon">in</div>
+          <div class="contact-info">
+            <span class="contact-label">LinkedIn</span>
+            <span class="contact-value">khorsandipour</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/khorsandipour"
+           target="_blank" class="contact-item">
+          <div class="contact-icon">⌥</div>
+          <div class="contact-info">
+            <span class="contact-label">GitHub</span>
+            <span class="contact-value">khorsandipour</span>
+          </div>
+        </a>
+
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-info">
+            <span class="contact-label">Location</span>
+            <span class="contact-value">Muscat, Oman</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      Ahmad Khorsandi Pour · Cloud Infrastructure Engineer ·
+      Muscat, Oman · 2026
+    </div>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const root = document.documentElement;
+      const current = root.getAttribute('data-theme');
+      root.setAttribute('data-theme',
+        current === 'light' ? 'dark' : 'light');
+    }
+  </script>
+
+</body>
+</html>
