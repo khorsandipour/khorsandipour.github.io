@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Ahmad Khorsandi Pour — Cloud Infrastructure Engineer</title>
-  <meta name="description" content="Cloud Infrastructure Engineer and DevOps Consultant based in Muscat, Oman. AWS, ECS, Terraform, CI/CD, Security.">
+  <meta name="description" content="Cloud Infrastructure Engineer and DevOps Consultant based in Muscat, Oman. AWS, ECS, Elastic Beanstalk, Terraform, CI/CD, Security, zero-data-loss migrations.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁️</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -476,6 +476,61 @@
       display: inline-block;
     }
 
+    /* ── FEATURED CASE STUDY ── */
+    .case-study {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .case-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+
+    .case-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .case-metric {
+      background: var(--bg-hover);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+    }
+
+    .case-metric b {
+      display: block;
+      font-size: 1.25rem;
+      color: var(--accent);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .case-metric span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+      display: block;
+    }
+
+    .case-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
     /* ── STACK GRID ── */
     .stack-section { margin-bottom: 28px; }
 
@@ -598,7 +653,8 @@
       <p class="hero-sub">
         Cloud Infrastructure Engineer and DevOps Consultant.
         I design and run AWS production environments for
-        fintech and SaaS platforms — currently based in
+        fintech and SaaS platforms, and migrate live systems
+        to AWS without losing data — currently based in
         Muscat, Oman.
       </p>
 
@@ -642,6 +698,10 @@
           <div class="stat-label">Production services<br>migrated to AWS</div>
         </div>
         <div class="stat-card">
+          <div class="stat-number">0</div>
+          <div class="stat-label">Records lost migrating<br>a live SaaS to AWS</div>
+        </div>
+        <div class="stat-card">
           <div class="stat-number">8</div>
           <div class="stat-label">Subsidiaries on<br>VMware vSphere</div>
         </div>
@@ -657,6 +717,44 @@
   <section id="work">
     <div class="container">
       <h2>Experience</h2>
+
+      <div class="work-item">
+        <div class="work-header">
+          <div class="work-title">Cloud Migration Engineer (Freelance, Fixed-Price)</div>
+          <div class="work-date">Oct 2026 — Nov 2026</div>
+        </div>
+        <div class="work-company">Live B2B SaaS platform (client confidential under NDA) — Remote</div>
+        <ul class="work-bullets">
+          <li>Found the root cause of recurring production data loss in a
+              3-day read-only discovery: a startup-recovery path that restored
+              old backups on every redeploy. Delivered 45 ranked findings
+              (3 P0 / 28 P1 / 14 P2) with evidence and retest criteria</li>
+          <li>Built a fail-closed AWS stack — Elastic Beanstalk (AL2023,
+              PHP 8.4), private RDS MariaDB, encrypted EFS, SSM Parameter
+              Store, CloudWatch/SNS — plus a network-isolated Chromium PDF
+              renderer</li>
+          <li>Ran two timed full-cutover rehearsals on a frozen real-data
+              copy; both passed, including a 9/9 data-preservation matrix
+              and instance replacement in under 3 minutes</li>
+          <li>Cut over two domains with the old platform fenced first:
+              ~200/200 tables and ~640k rows reconciled, issued PDFs
+              verified by SHA-256, ~4-minute DNS switch, zero 5xx errors
+              in the first 24 hours</li>
+          <li>Gated delivery: written owner approval at every step, every
+              decision and test logged with hashed evidence; all 4
+              milestones accepted, followed by 14-day support</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">Elastic Beanstalk</span>
+          <span class="tag">RDS MariaDB</span>
+          <span class="tag">EFS</span>
+          <span class="tag">SSM</span>
+          <span class="tag">CloudWatch</span>
+          <span class="tag">PHP 8.4</span>
+          <span class="tag">nginx</span>
+          <span class="tag">Cloudflare</span>
+        </div>
+      </div>
 
       <div class="work-item">
         <div class="work-header">
@@ -773,7 +871,66 @@
     <div class="container">
       <h2>Featured Projects</h2>
 
+      <!-- FEATURED CASE STUDY -->
+      <div class="case-study">
+        <div class="case-label">Case study · Delivered Nov 2026</div>
+        <h3>Zero-Data-Loss Migration of a Live SaaS from a PaaS to AWS</h3>
+        <p>
+          A live B2B SaaS (two domains, one shared database) was losing
+          customer data on every redeploy. I isolated the root cause,
+          built a fail-closed AWS stack, rehearsed the full cutover twice
+          on a controlled real-data copy, and moved production with every
+          step approved in writing and backed by hashed evidence.
+        </p>
+        <div class="case-metrics">
+          <div class="case-metric"><b>0</b><span>records lost</span></div>
+          <div class="case-metric"><b>~640k</b><span>rows reconciled</span></div>
+          <div class="case-metric"><b>2 / 2</b><span>rehearsals passed</span></div>
+          <div class="case-metric"><b>~4 min</b><span>DNS switch</span></div>
+          <div class="case-metric"><b>0</b><span>5xx errors in first 24 h</span></div>
+          <div class="case-metric"><b>4 / 4</b><span>milestones accepted</span></div>
+        </div>
+        <div class="tags">
+          <span class="tag">Elastic Beanstalk</span>
+          <span class="tag">RDS MariaDB</span>
+          <span class="tag">EFS</span>
+          <span class="tag">SSM</span>
+          <span class="tag">CloudWatch</span>
+          <span class="tag">Chromium sandbox</span>
+          <span class="tag">Runbooks</span>
+        </div>
+        <div class="case-links">
+          <a href="https://github.com/khorsandipour/paas-to-aws-migration"
+             target="_blank" class="btn btn-secondary">
+            Read the case study ↗
+          </a>
+        </div>
+      </div>
+
       <div class="card-grid">
+
+        <a href="https://github.com/khorsandipour/paas-to-aws-migration"
+           target="_blank" class="repo-card">
+          <div class="repo-name">
+            🛡 paas-to-aws-migration
+          </div>
+          <div class="repo-desc">
+            Method, architecture and reusable templates from a
+            zero-data-loss live migration: findings register,
+            preservation test matrix, timed cutover runbook,
+            GO/NO-GO checklist and scheduler job inventory.
+            Client details withheld under NDA.
+          </div>
+          <div class="tags">
+            <span class="tag">AWS</span>
+            <span class="tag">Migration</span>
+            <span class="tag">Runbooks</span>
+          </div>
+          <div class="repo-lang">
+            <span class="lang-dot" style="background:#083fa1"></span>
+            Markdown
+          </div>
+        </a>
 
         <a href="https://github.com/khorsandipour/aws-production-stack"
            target="_blank" class="repo-card">
@@ -858,7 +1015,10 @@
           <span class="stack-item">EC2</span>
           <span class="stack-item">ECS Fargate</span>
           <span class="stack-item">ECS EC2</span>
+          <span class="stack-item">Elastic Beanstalk</span>
           <span class="stack-item">RDS Multi-AZ</span>
+          <span class="stack-item">RDS MariaDB</span>
+          <span class="stack-item">EFS</span>
           <span class="stack-item">Lambda</span>
           <span class="stack-item">S3</span>
           <span class="stack-item">CloudFront</span>
@@ -870,6 +1030,8 @@
           <span class="stack-item">ECR</span>
           <span class="stack-item">Auto Scaling</span>
           <span class="stack-item">CloudWatch</span>
+          <span class="stack-item">SSM Parameter Store</span>
+          <span class="stack-item">IAM</span>
           <span class="stack-item">GuardDuty</span>
         </div>
       </div>
@@ -881,10 +1043,29 @@
           <span class="stack-item">GitHub Actions</span>
           <span class="stack-item">Docker</span>
           <span class="stack-item">Linux (Ubuntu/CentOS)</span>
+          <span class="stack-item">Amazon Linux 2023</span>
+          <span class="stack-item">nginx</span>
+          <span class="stack-item">PHP-FPM</span>
+          <span class="stack-item">systemd</span>
+          <span class="stack-item">Bash</span>
+          <span class="stack-item">PowerShell</span>
+          <span class="stack-item">Cloudflare</span>
           <span class="stack-item">VMware vSphere</span>
           <span class="stack-item">Veeam</span>
           <span class="stack-item">Veritas</span>
           <span class="stack-item">HPE Servers</span>
+        </div>
+      </div>
+
+      <div class="stack-section">
+        <div class="stack-label">Migration & Reliability</div>
+        <div class="stack-items">
+          <span class="stack-item">Zero-data-loss cutover</span>
+          <span class="stack-item">MariaDB / MySQL migration</span>
+          <span class="stack-item">PITR & snapshots</span>
+          <span class="stack-item">RPO / RTO</span>
+          <span class="stack-item">Cutover runbooks</span>
+          <span class="stack-item">Incident response</span>
         </div>
       </div>
 
@@ -991,7 +1172,8 @@
     <div class="container">
       <h2>Contact</h2>
       <p style="margin-bottom:24px">
-        Open to Cloud Infrastructure, DevOps and SRE roles.
+        Open to Cloud Infrastructure, DevOps and SRE roles, and to
+        freelance AWS migration projects.
         Available to relocate with visa sponsorship.
       </p>
       <div class="contact-grid">
